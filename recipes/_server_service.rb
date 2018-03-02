@@ -16,7 +16,7 @@
 #
 
 case node['platform_family']
-when 'rhel', 'fedora', 'debian'
+when 'rhel', 'fedora'
   template '/etc/init.d/collectd' do
     source 'collectd-init.d.erb'
     owner 'root'
@@ -24,6 +24,11 @@ when 'rhel', 'fedora', 'debian'
     mode 00755
   end
 
+  service 'collectd' do
+    supports :restart => true, :status => true
+    action [:enable, :start]
+  end
+when 'debian'
   service 'collectd' do
     supports :restart => true, :status => true
     action [:enable, :start]
