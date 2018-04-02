@@ -30,7 +30,6 @@ when 'rhel', 'fedora'
   end
 when 'debian'
   service 'collectd' do
-    provider Chef::Provider::Service::Systemd
     supports :restart => true, :status => true
     action [:enable, :start]
   end
